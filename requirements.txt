@@ -29,8 +29,3 @@ PyPDF2
 langchain
 scikit-learn
 pdfplumber
-pytest 
-pytest-asyncio
-pytest-mock
-httpx
-pytest-co
