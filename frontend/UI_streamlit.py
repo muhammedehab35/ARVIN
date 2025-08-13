@@ -8,9 +8,29 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
+import os
+
+# ---------- Backend Configuration ----------
+def get_backend_url():
+    """Détermine l'URL du backend selon l'environnement"""
+    
+    # 1. Si BACKEND_URL est défini dans les secrets Streamlit Cloud
+    if os.getenv("BACKEND_URL"):
+        return os.getenv("BACKEND_URL")
+    
+    # 2. Si on est en développement local
+    if os.getenv("STREAMLIT_ENV") == "development":
+        return "http://localhost:8000"
+    
+    # 3. URL de votre backend Render déployé
+    return "https://arvin-qove.onrender.com"
+
+BACKEND = get_backend_url()
+
+# Debug info (sera visible dans les logs Streamlit)
+print(f"🔗 Backend URL configured: {BACKEND}")
 
 # ---------- Constants ----------
-BACKEND = "http://localhost:8000"
 CTX_OPTIONS = {
     "Summary": "summary",
     "Sample (200-400 rows)": "sample",
@@ -27,6 +47,8 @@ EMAIL_CONFIG = {
     "email": "arvinmoasikeeran@gmail.com",
     "password": "eiku rvnn hsgx cptc"
 }
+
+# ---------- Email Functions ----------
 
 # ---------- Email Functions ----------
 def send_forgot_password_notification(user_email):
