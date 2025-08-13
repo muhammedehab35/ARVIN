@@ -23,7 +23,7 @@ def get_backend_url():
         return "http://localhost:8000"
     
     # 3. URL de votre backend Render déployé
-    return "https://arvin-qove.onrender.com"
+    return "hhttps://arvin-le9k.onrender.com"
 
 BACKEND = get_backend_url()
 
