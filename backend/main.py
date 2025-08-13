@@ -288,21 +288,28 @@ async def health_check():
 if __name__ == "__main__":
     import os
     
-    # Pour Render, PORT est fourni automatiquement
+    # Détection automatique de l'environnement Render
+    is_render = os.getenv("RENDER") == "true" or os.getenv("PORT") is not None
+    
+    # Configuration du port - Render utilise la variable PORT
     port = int(os.environ.get("PORT", 8000))
     
+    # Configuration de l'environnement
+    environment = "production" if is_render else ENVIRONMENT
+    
     print(f"🚀 Starting Abacus FinBot Backend...")
-    print(f"🌍 Environment: {ENVIRONMENT}")
+    print(f"🌍 Environment: {environment}")
     print(f"🔌 Port: {port}")
+    print(f"🖥️  Render detected: {'✅' if is_render else '❌'}")
     print(f"🔑 OpenAI Key configured: {'✅' if settings.OPENAI_API_KEY else '❌'}")
     
-    if ENVIRONMENT == "production":
+    if is_render or environment == "production":
         print("🌟 PRODUCTION MODE - Render Deployment")
         uvicorn.run(
             "main:app",
-            host="0.0.0.0",
+            host="0.0.0.0",  # IMPORTANT: 0.0.0.0 pour Render
             port=port,
-            reload=False,
+            reload=False,    # Pas de reload en production
             log_level="info",
             access_log=True
         )
