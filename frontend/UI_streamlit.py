@@ -22,8 +22,8 @@ def get_backend_url():
     if os.getenv("STREAMLIT_ENV") == "development":
         return "http://localhost:8000"
     
-    # 3. URL de votre backend Render déployé
-    return "hhttps://arvin-le9k.onrender.com"
+    # 3. NOUVELLE URL de votre backend Render déployé
+    return "https://arvin-le9k.onrender.com"
 
 BACKEND = get_backend_url()
 
