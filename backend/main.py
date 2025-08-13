@@ -284,7 +284,6 @@ async def health_check():
         "expert_available": SHARIA_EXPERT_AVAILABLE,
         "research_tools": agents_initialized["agent03"]
     }
-
 if __name__ == "__main__":
     import os
     
